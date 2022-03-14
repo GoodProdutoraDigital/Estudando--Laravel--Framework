@@ -13,6 +13,24 @@ header {
     border-bottom: 1px solid #ccc;
 }
 
+.msg-div {
+    display: inline-flex;
+    text-align: left;
+    position: absolute;
+    margin-top: 20px;
+    margin-left: 50px;
+}
+
+.msg-div p {
+    font-size: 17px;
+}
+
+.msg-div h1 {
+    margin-left: 10px;
+    font-size: 22px;
+    font-style: italic;
+}
+
 .row {
     margin: 0;
 }
@@ -20,7 +38,6 @@ header {
 .container-fluid {
     padding: 0;
 }
-
 .btn-primary {
     background-color: #f2a340;
     border: 2px solid #c28008;

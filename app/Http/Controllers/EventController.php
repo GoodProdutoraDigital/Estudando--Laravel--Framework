@@ -13,6 +13,8 @@ class EventController extends Controller
 {
     public function index(){
 
+        $user = auth()->user();
+
         $search = request('search');
         if($search){
             $events = Event::where([
@@ -22,12 +24,13 @@ class EventController extends Controller
             /* Capturar todos eventos do model com método ::all do nosso ORM Eloquent */
             $events = Event::all();
         }
-        return view('welcome', ['events' => $events, 'search' => $search]);
+        return view('welcome', ['events' => $events, 'search' => $search, 'user'=> $user]);
         
     }
 
     public function create(){
-        return view('events.create');
+        $user = auth()->user();
+        return view('events.create', ['user'=> $user]);
     }
 
     /* parâmetro Request*/
@@ -83,7 +86,7 @@ class EventController extends Controller
         $eventOwner = User::where('id', $event->user_id)
         ->first() /* Primeiro e único usuário que encontrar */
         ->toArray(); /* Transformar obj em array */
-        return view('events.show', ['event' => $event, 'eventOwner' => $eventOwner, 'hasUserJoined' => $hasUserJoined]);
+        return view('events.show', ['user'=> $user, 'event' => $event, 'eventOwner' => $eventOwner, 'hasUserJoined' => $hasUserJoined]);
     }
 
     public function dashboard(){
@@ -91,7 +94,7 @@ class EventController extends Controller
         $events = $user->events;
         $eventsAsParticipant = $user->eventsAsParticipant;
 
-        return view('events.dashboard',['events' => $events, 'eventsAsParticipant' => $eventsAsParticipant]);
+        return view('events.dashboard',['user'=> $user, 'events' => $events, 'eventsAsParticipant' => $eventsAsParticipant]);
     }
 
     public function destroy($id){
@@ -105,7 +108,7 @@ class EventController extends Controller
 
         /* Variável chama o objeto model Event permitindo uso de métodos */
         $event = Event::findOrFail($id);
-        return view('events.edit', ['event' => $event]);
+        return view('events.edit', ['user'=> $user, 'event' => $event]);
 
         /* Condição de segurança ao editar evento 
         Permitindo apenas para o dono do evento */

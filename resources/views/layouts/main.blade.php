@@ -21,6 +21,13 @@
             <a href="/" class="navbar-brand">
                 <img src="/img/icons/github.svg" alt="HDC Event">
             </a>
+            <div class="msg-div">
+                @if($user)
+                <p>Seja Bem vindo(a) </p>
+                <h1>{{$user->name}}</h1>
+                @else
+                @endif
+            </div>
             <ul class="navbar-nav">
                 <li class="navbar-iten">
                     <a href="/" class="nav-link">Eventos</a>
